@@ -7,6 +7,7 @@
 - matemática
 
 f(x) = x + 3
+
 f(2) = 2 + 3
 
 - pode ter entrada (argumento / parametro)
