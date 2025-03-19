@@ -1,30 +1,8 @@
+import entity.Carro;
+
 import java.util.Scanner;
 
-class Carro {
-     // atributos (tem...)
-    String modelo;
-    String fabricante;
-    int ano;
-    String placa;
-    String dono;
-
-    // construtor
-    Carro(String modeloInput, String fabricanteInput, int anoInput, String placaInput, String donoInput) {
-        modelo = modeloInput;
-        fabricante = fabricanteInput;
-        ano = anoInput;
-        placa = placaInput;
-        dono = donoInput;
-    }
-}
-
 public class App {
-
-    public static void exibirCarro(int id, String modelo, String marca, int ano, String placa, String dono) {
-        System.out.println("ID: " + id + ", Fabricante: " + marca + ", Modelo: " + modelo + " " + ano);
-        System.out.println("Placa: " + placa + ", Dono: " + dono);
-        System.out.println("-");
-    }
 
     public static void criarCarro(Scanner teclado, int posicaoVazia, Carro[] carros) {
         System.out.print("Digite o modelo do carro: ");
@@ -43,59 +21,55 @@ public class App {
         System.out.print("Digite o dono do carro: ");
         String dono = teclado.nextLine();
 
-        Carro c1 = new Carro(
-                "Etios",
-                "toyota",
-                2024,
-                "abc123",
-                "Pedro"
-        );
-
         carros[posicaoVazia] = new Carro(modelo, fabricante, ano, placa, dono);
     }
 
-//    public static void exibirCarros(int quantidade, String[] modelos, String[] marcas, int[] anos, String[] placas, String[] donos) {
-//        for(int i = 0; i < quantidade; i++) {
-//            exibirCarro(i, modelos[i], marcas[i], anos[i], placas[i], donos[i]);
-//        }
-//    }
-//
-//    public static void buscarPelaPlaca(Scanner teclado, int quantidade, String[] modelos, String[] marcas, int[] anos, String[] placas, String[] donos) {
-//        System.out.print("Digite uma placa para buscar: ");
-//        String placaParaBuscar = teclado.nextLine();
-//
-//        // TODO: validar antes de buscar se a placa esta no formato
-//
-//        for (int i = 0; i < quantidade; i++) {
-//            if( placaParaBuscar.equals(placas[i]) ) {
-//                exibirCarro(i, modelos[i], marcas[i], anos[i], placas[i], donos[i]);
-//            }
-//        }
-//    }
-//
-//    public static void deletarCarro(Scanner teclado, int quantidade, String[] modelos, String[] marcas, int[] anos, String[] placas, String[] donos) {
-//        exibirCarros(quantidade, modelos, marcas, anos, placas, donos);
-//        System.out.print("Escolha um id para deletar: ");
-//        int idParaDeletar = teclado.nextInt();
-//        teclado.nextLine();
-//
-//        if(idParaDeletar < 0 || idParaDeletar > quantidade) {
-//            System.out.println("escolha um id valido!");
-//            return;
-//        }
-//
-//        if(modelos[idParaDeletar] == null) {
-//            System.out.println("não há elemento para deletar neste id");
-//            return;
-//        }
-//
-//        modelos[idParaDeletar] = null;
-//        marcas[idParaDeletar] = null;
-//        anos[idParaDeletar] = 0;
-//        placas[idParaDeletar] = null;
-//        donos[idParaDeletar] = null;
-//    }
-//
+    public static void exibirCarros(int quantidade, Carro[] carros) {
+        for(int i = 0; i < quantidade; i++) {
+            if(carros[i] != null) {
+                System.out.println(carros[i]); // carros[i] => carro atual
+            }
+        }
+    }
+
+    public static void buscarPelaPlaca(Scanner teclado, int quantidade, Carro[] carros) {
+        System.out.print("Digite uma placa para buscar: ");
+        String placaParaBuscar = teclado.nextLine();
+
+        // TODO: validar antes de buscar se a placa esta no formato
+
+        for (int i = 0; i < quantidade; i++) {
+            if( placaParaBuscar.equals(carros[i].getPlaca()) ) {
+                System.out.println(carros[i]);
+            }
+        }
+    }
+
+    public static void deletarCarro(Scanner teclado, int quantidade, Carro[] carros) {
+        exibirCarros(quantidade, carros);
+        System.out.print("Escolha uma placa para deletar: ");
+        String placaParaDeletar = teclado.nextLine();
+        int posicaoParaDeletar = -1;
+
+        for (int i = 0; i < quantidade; i++) {
+            if( placaParaDeletar.equals(carros[i].getPlaca()) ) {
+                posicaoParaDeletar = i;
+            }
+        }
+
+        if(posicaoParaDeletar == -1) {
+            System.out.println("escolha uma placa valida!");
+            return;
+        }
+
+        if(carros[posicaoParaDeletar] == null) {
+            System.out.println("não há elemento para deletar neste id");
+            return;
+        }
+
+        carros[posicaoParaDeletar] = null;
+    }
+
 //    public static void atualizarDonoCarro(Scanner teclado, int quantidade, String[] modelos, String[] marcas, int[] anos, String[] placas, String[] donos) {
 //        exibirCarros(quantidade, modelos, marcas, anos, placas, donos);
 //        System.out.print("Escolha um id para atualizar: ");
@@ -148,11 +122,6 @@ public class App {
         int capacidade = 100;
         int posicaoVazia = 0;
 
-        int a = 2, b = 3;
-        int temp = a;
-        a = b;
-        b = temp;
-
         // class = Classificacao, Molde, Tipo personalizado
 
         Carro[] carros = new Carro[capacidade];
@@ -163,9 +132,9 @@ public class App {
             System.out.println("------------------------");
             switch (opcao) {
                 case 1 -> criarCarro(teclado, posicaoVazia++, carros);
-//                case 2 -> exibirCarros(posicaoVazia, modelos, marcas, anos, placas, donos);
-//                case 3 -> buscarPelaPlaca(teclado, posicaoVazia, modelos, marcas, anos, placas, donos);
-//                case 4 -> deletarCarro(teclado, posicaoVazia, modelos, marcas, anos, placas, donos);
+                case 2 -> exibirCarros(posicaoVazia, carros);
+                case 3 -> buscarPelaPlaca(teclado, posicaoVazia, carros);
+                case 4 -> deletarCarro(teclado, posicaoVazia, carros);
 //                case 5 -> atualizarDonoCarro(teclado, posicaoVazia, modelos, marcas, anos, placas, donos);
                 default -> System.out.println("Opcao invalida!");
             }
@@ -175,7 +144,6 @@ public class App {
         }
 
         System.out.println("Ate logo!");
-//        criarCarro(teclado, posicaoVazia++, modelos, marcas, anos, placas, donos);
 
     }
 }
