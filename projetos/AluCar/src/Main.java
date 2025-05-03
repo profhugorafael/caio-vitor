@@ -1,3 +1,4 @@
+import enums.Momento;
 import menu.AluguelMenu;
 import model.Aluguel;
 import model.NotaFiscal;
@@ -79,16 +80,8 @@ public class Main {
         double custoPorDia = teclado.nextDouble();
         teclado.nextLine();
 
-        // TODO: informar hora de inicio e termino esperadas
-        // dd/MM/YYYY hh:mm
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-
-        LocalDateTime inicio = AluguelMenu.solicitarHoraInicio();
-
-        System.out.print("Digite o termino (DD/MM/AAAA hh:mm): ");
-        String terminoTexto = teclado.nextLine();
-        LocalDateTime termino = LocalDateTime.parse(terminoTexto, formatter);
+        LocalDateTime inicio = AluguelMenu.solicitarDataHora(Momento.INICIO);
+        LocalDateTime termino = AluguelMenu.solicitarDataHora(Momento.TERMINO);
 
         // TODO: criar objeto aluguel
 
@@ -106,15 +99,6 @@ public class Main {
         System.out.println(aluguelSimulado);
     }
 
-    public static void menu() {
-        System.out.println("1 - Novo Veiculo");
-        System.out.println("2 - Buscar pela Placa");
-        System.out.println("3 - Listar TODOS");
-        System.out.println("4 - Simular aluguel de veiculo");
-        System.out.println("0 - Sair do MENU");
-        System.out.print("Digite sua OPÇÃO ? ");
-    }
-
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
 
@@ -123,7 +107,7 @@ public class Main {
 
         int posicaoVazia = 0;
 
-        menu();
+        AluguelMenu.mostrarMenu();
         int opcao = teclado.nextInt();
         teclado.nextLine();
 
@@ -147,7 +131,7 @@ public class Main {
                 case 4 -> simularAluguel(teclado, veiculos);
             }
 
-            menu();
+            AluguelMenu.mostrarMenu();
             opcao = teclado.nextInt();
             teclado.nextLine();
 
