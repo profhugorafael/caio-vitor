@@ -5,13 +5,15 @@ public class Veiculo {
     private String modelo;
     private int ano;
     private String cor;
+    private String observacoes;
 
 
-    public Veiculo(String placa, String modelo, int ano, String cor) {
+    public Veiculo(String placa, String modelo, int ano, String cor, String observacoes) {
         this.placa = placa;
         this.modelo = modelo;
         this.ano = ano;
         this.cor = cor;
+        this.observacoes = observacoes;
     }
 
     public Veiculo() {
@@ -49,13 +51,22 @@ public class Veiculo {
         this.cor = cor;
     }
 
+    public String getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
+    }
+
     @Override
     public String toString() {
-        return "{" +
+        return "Veiculo{" +
                 "placa='" + placa + '\'' +
                 ", modelo='" + modelo + '\'' +
                 ", ano=" + ano +
                 ", cor='" + cor + '\'' +
+                ", observacoes='" + observacoes + '\'' +
                 '}';
     }
 }
